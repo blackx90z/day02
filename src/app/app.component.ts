@@ -99,6 +99,22 @@ class Worker extends Person{
     return `My name is ${this.name} and I work in ${this.department}.`;
   }
 }
+interface Stuff{
+  name: string;
+  age: number;
+  department?: string;
+
+  foo?(s:string): string;
+  // foo?(n:number): number;
+}
+class StuffTwo implements Stuff{
+  name: string;
+  age: number;
+foo?(s:string){
+  this.name = s;
+}
+
+}
 export class AppComponent implements OnInit {
   title = 'app';
   
@@ -108,6 +124,8 @@ export class AppComponent implements OnInit {
     // this.classCompatibilityTesting();
   this.extendDerivedClassTesting();
     this.extendDerivedClassTesting();
+    this.interfaceTesting({name:"xyz", age: 25});
+
 }
 
   classTesting(){
@@ -150,6 +168,13 @@ protectedTesting(){
   console.log(worker.getDetails());
   // console.log(worker.name);
 
-  const person = new Person("Patrick");
-  console.log(person);
+  // const person = new Person("Patrick");
+  // console.log(person);
+}
+interfaceTesting(x:Stuff){
+  console.log(`${x.name} is ${x.age} years old and works in ${x.department}`);
+  const stuff = new StuffTwo();
+  stuff.foo("test");
+  console.log(stuff.name);
+
 }
